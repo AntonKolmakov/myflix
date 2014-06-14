@@ -6,7 +6,7 @@ CarrierWave.configure do |config|
       :aws_access_key_id      => ENV['AWS_ACCESS_KEY_ID'],
       :aws_secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY']
     }
-    config.fog_directory  = 'shrouded-meadow-9922-#{Rails.env}'
+    config.fog_directory  = ENV['S3_BUCKET']
   else
     config.storage = :file
     config.enable_processing = Rails.env.development?
