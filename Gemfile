@@ -40,6 +40,8 @@ group :test do
   gem 'launchy'
   gem 'capybara'
   gem 'capybara-email'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do
