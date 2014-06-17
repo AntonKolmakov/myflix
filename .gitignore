@@ -13,7 +13,15 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-/config/application.yml
 
 # Ignore application configuration
 /config/application.yml
+
+# Ignore uploaded files
+public/uploads
+
+# Ignore VCR files
+spec/cassettes
+
+# Ignore redis dump
+dump.rdb

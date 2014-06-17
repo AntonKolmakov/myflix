@@ -10,7 +10,6 @@ module Myflix
     config.filter_parameters += [:password]
     config.active_support.escape_html_entities_in_json = true
     config.autoload_paths << "#{Rails.root}/lib"
-    config.action_mailer.default_url_options = { host: ENV['MAILER_HOST'] }
 
     config.assets.enabled = true
     config.generators do |g|
