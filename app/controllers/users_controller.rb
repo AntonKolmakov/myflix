@@ -16,12 +16,14 @@ class UsersController < ApplicationController
         @user.save
         handle_invitation
         AppMailer.delay.send_welcome_email(@user)
+        flash[:success] = "Thank you for registering."
         redirect_to sign_in_path
       else
         flash[:danger] = charge.error_message
         render :new
       end
     else
+      flash[:danger] = "Invalid user info"
       render :new
     end
   end
