@@ -44,5 +44,9 @@ module StripeWrapper
         new(error_message: e.message)
       end
     end
+
+    def customer_token
+      response.id
+    end 
   end
 end
