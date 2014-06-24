@@ -19,6 +19,7 @@ describe User do
       Fabricate(:queue_item, user: alice, video: video)
       alice.queued_video?(video).should be_true
     end
+
     it "returns false when the user hasn't queued the video" do
       alice = Fabricate(:user)
       video = Fabricate(:video)
@@ -34,6 +35,7 @@ describe User do
       Fabricate(:relationship, leader: bob, follower: alice)
       expect(alice.follows?(bob)).to be_true
     end
+
     it "returns false if the user does not have a following relationships with another user" do
       alice = Fabricate(:user)
       bob = Fabricate(:user)
@@ -49,10 +51,19 @@ describe User do
       alice.follow(bob)
       expect(alice.follows?(bob)).to be_true
     end
+
     it "does not follow one self" do
       alice = Fabricate(:user)
       alice.follow(alice)
       expect(alice.follows?(alice)).to be_false
+    end
+  end
+
+  describe "#deactivate!" do
+    it "deactivate a active user" do
+      alice = Fabricate(:user, active: true)
+      alice.deactivate!
+      expect(alice).not_to be_active
     end
   end
 end
