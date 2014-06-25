@@ -1,4 +1,3 @@
-The myflix 
-=
+== The myflix
 
-non-trivial e-commerce application, a clone of NetFlix, with full payment processing, account management, and administration capabilities.
+Non-trivial e-commerce application, a clone of NetFlix, with full payment processing, account management, and administration capabilities.
