@@ -9,9 +9,12 @@
     = javascript_include_tag "application"
   %body
     %header
-      = render 'shared/header'
-    %section.content.clearfix
-      = render 'shared/messages'
-      = yield
-    %footer
-      &copy 2014 MyFLiX
+    - unless current_user.nil?
+      - if current_user.admin?
+        = render 'shared/admin_panel'
+    = render 'shared/header'
+  %section.content.clearfix
+    = render 'shared/messages'
+    = yield
+  %footer
+    &copy 2014 MyFLiX
