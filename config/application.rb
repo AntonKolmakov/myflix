@@ -10,6 +10,8 @@ module Myflix
     config.filter_parameters += [:password]
     config.active_support.escape_html_entities_in_json = true
     config.autoload_paths << "#{Rails.root}/lib"
+    
+    config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
 
     config.assets.enabled = true
     config.generators do |g|
