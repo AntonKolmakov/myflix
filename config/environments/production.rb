@@ -16,6 +16,8 @@ Myflix::Application.configure do
 
   config.i18n.fallbacks = true
 
+  config.cache_store = :redis_store, 'REDISTOGO_URL', { expires_in: 90.minutes }
+
   config.active_support.deprecation = :notify
 
   config.action_mailer.default_url_options = { :host => 'shrouded-meadow-9922.herokuapp.com' }

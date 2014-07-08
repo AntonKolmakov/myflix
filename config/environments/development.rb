@@ -13,6 +13,8 @@ Myflix::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
+  config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
+
   # Do not compress assets
   config.assets.compress = false
 
