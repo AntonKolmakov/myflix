@@ -1,5 +1,5 @@
 class Video < ActiveRecord::Base
-  belongs_to :category
+  belongs_to :category, touch: true
   has_many :reviews, -> { order "created_at DESC" }
   validates_presence_of :title, :description
 
