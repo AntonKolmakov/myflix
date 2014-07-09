@@ -1,0 +1,14 @@
+%section.register.container
+  .row
+    .col-sm-10.col-sm-offset-1
+      = bootstrap_form_for @user, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-4', html: { id: "payment-form" }, url: user_path(@user), method: :patch do |f|
+        %header
+          %h1 Edit your profile
+        %fieldset
+          = f.email_field    :email, label: "Email Address", class: 'col-sm-2'
+          = f.password_field :password
+          = f.text_field     :full_name, label: "Full Name"
+          = hidden_field_tag :invitation_token, @invitation_token
+        %fieldset.actions.control-group.col-sm-offset-2
+          .controls
+            %input(type="submit" value="Submit" class="btn btn-default")

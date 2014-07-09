@@ -1,7 +1,7 @@
 Myflix::Application.routes.draw do
   root "pages#front"
   
-  resources :users,      only: [:create, :show]
+  resources :users,      only: [:create, :show, :edit, :update]
   get 'people', to: 'relationships#index'
   resources :relationships, only: [:create, :destroy]
   resources :sessions,   only: [:create]

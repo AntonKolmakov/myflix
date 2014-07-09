@@ -20,6 +20,20 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+   
+    if @user.update(person_params)
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
   def new_with_invitation_token
     invitation = Invitation.where(token: params[:token]).first
     if invitation
