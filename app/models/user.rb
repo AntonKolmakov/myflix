@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_secure_password validations: false
 
+  has_many :events
   has_many :queue_items, -> { order :position }
   has_many :reviews, -> { order "created_at DESC" }
   has_many :following_relationships, class_name: "Relationship", foreign_key: :follower_id
