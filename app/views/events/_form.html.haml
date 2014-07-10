@@ -1,17 +1,6 @@
-= form_for @event do |f|
-  - if @event.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@event.errors.count, "error")} prohibited this event from being saved:"
-      %ul
-        - @event.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
+= bootstrap_form_for @event do |f|
+  %fieldset
     = f.hidden_field :user_id, value: current_user.id
-    = f.label :description
-    = f.text_field :description
-  .field
-    = f.label :published_on
-    = f.text_field :published_on
-  .actions
+    = f.text_field :description, label: "Description"
+    = f.text_field :published_on, label: "Date"
     = f.submit 'Save'

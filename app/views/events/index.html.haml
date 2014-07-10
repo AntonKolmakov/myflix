@@ -1,21 +1,15 @@
 %h1 Listing events
 
-%table
-  %tr
-    %th Description
-    %th Published on
-    %th
-    %th
-    %th
-
-  - @events.each do |event|
-    %tr
-      %td= event.description
-      %td= event.published_on
-      %td= link_to 'Show', event
-      %td= link_to 'Edit', edit_event_path(event)
-      %td= link_to 'Destroy', event, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
+#events
+  %h2#month
+    = link_to "<", date: @date.prev_month
+    = @date.strftime("%B %Y")
+    = link_to ">", date: @date.next_month
+  = calendar @date do |date|
+    = date.day
+    - if @events_by_date[date]
+      %ul
+        - @events_by_date[date].each do |event|
+          %li= link_to event.description, event
 
 = link_to 'New Event', new_event_path
