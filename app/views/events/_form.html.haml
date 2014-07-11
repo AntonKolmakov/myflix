@@ -1,0 +1,7 @@
+= bootstrap_form_for @event do |f|
+  %fieldset
+    = f.hidden_field :user_id, value: current_user.id
+    = f.text_field :description, label: "Description"
+    = f.text_field :published_on, label: "Date"
+    = f.check_box :public_event
+    = f.submit 'Save'

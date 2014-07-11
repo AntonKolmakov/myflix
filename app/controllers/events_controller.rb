@@ -1,0 +1,77 @@
+class EventsController < ApplicationController
+  before_filter :require_user
+  before_action :set_event, only: [:show, :edit, :update, :destroy]
+
+  # GET /events
+  def index
+    if params[:event_id]
+      search = Event.where(public_event: boolean(params[:event_id]))
+      @events = (current_user.events + search).uniq
+      for_calendar
+    else
+      public_event = Event.where(public_event: true)
+      @events = (current_user.events + public_event).uniq
+      for_calendar
+    end
+  end
+
+  # GET /events/1
+  def show
+  end
+
+  # GET /events/new
+  def new
+    @event = Event.new
+  end
+
+  # GET /events/1/edit
+  def edit
+  end
+
+  # POST /events
+  def create
+    @event = current_user.events.build(event_params)
+
+    if @event.save
+      redirect_to @event, notice: 'Event was successfully created.'
+    else
+      render :new
+    end
+  end
+
+  # PATCH/PUT /events/1
+  def update
+    if @event.update(event_params)
+      redirect_to @event, notice: 'Event was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
+  # DELETE /events/1
+  def destroy
+    @event.destroy
+    redirect_to events_url, notice: 'Event was successfully destroyed.'
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_event
+      @event = Event.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def event_params
+      params.require(:event).permit(:description, :published_on, :user_id, :public_event)
+    end
+
+    def for_calendar
+      @events_by_date = @events.group_by(&:published_on)
+      @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    end
+
+    def boolean(string)
+      return true if string == 'true'
+      return nil if string == 'false'
+    end
+end

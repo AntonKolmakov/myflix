@@ -24,6 +24,7 @@ gem 'stripe_event'
 gem 'figaro'
 gem 'draper'
 gem 'rack-mini-profiler'
+gem 'jquery-ui-rails'
 
 group :development do
   gem 'sqlite3'

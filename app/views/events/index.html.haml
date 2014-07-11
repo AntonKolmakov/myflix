@@ -1,0 +1,17 @@
+%h1 Listing events
+= form_tag events_path, method: :get do
+  = select_tag(:event_id, options_for_select([['Only my events', false], ['All events', true]]), include_blank: true)
+  = submit_tag "send"
+#events
+  %h2#month
+    = link_to "<", date: @date.prev_month
+    = @date.strftime("%B %Y")
+    = link_to ">", date: @date.next_month
+  = calendar @date do |date|
+    = date.day
+    - if @events_by_date[date]
+      %ul
+        - @events_by_date[date].each do |event|
+          %li= event.public_event? ? (link_to "#{event.description}(#{event.user.full_name})", event) : (link_to event.description, event)
+
+= link_to 'New Event', new_event_path

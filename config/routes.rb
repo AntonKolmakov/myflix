@@ -1,4 +1,6 @@
 Myflix::Application.routes.draw do
+  resources :events
+
   root "pages#front"
   
   resources :users,      only: [:create, :show, :edit, :update]

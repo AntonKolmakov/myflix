@@ -14,3 +14,5 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require payment
+//= require jquery-ui/datepicker
+//= require events
