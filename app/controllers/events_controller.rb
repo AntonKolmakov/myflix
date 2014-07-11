@@ -4,9 +4,15 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @events = current_user.events
-    @events_by_date = @events.group_by(&:published_on)
-    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    if params[:event_id]
+      search = Event.where(public_event: boolean(params[:event_id]))
+      @events = (current_user.events + search).uniq
+      for_calendar
+    else
+      public_event = Event.where(public_event: true)
+      @events = (current_user.events + public_event).uniq
+      for_calendar
+    end
   end
 
   # GET /events/1
@@ -56,6 +62,16 @@ class EventsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def event_params
-      params.require(:event).permit(:description, :published_on, :user_id)
+      params.require(:event).permit(:description, :published_on, :user_id, :public_event)
+    end
+
+    def for_calendar
+      @events_by_date = @events.group_by(&:published_on)
+      @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    end
+
+    def boolean(string)
+      return true if string == 'true'
+      return nil if string == 'false'
     end
 end
