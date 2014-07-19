@@ -1,7 +1,11 @@
-= bootstrap_form_for @event do |f|
-  %fieldset
-    = f.hidden_field :user_id, value: current_user.id
-    = f.text_field :description, label: "Description"
-    = f.text_field :published_on, label: "Date"
-    = f.check_box :public_event
-    = f.submit 'Save'
+= bootstrap_form_for @event, html: {role: :form, 'data-model' => 'event'} do |f|
+  .row
+    .col-sm-6.col-sm-offset-3
+      %fieldset
+        = f.hidden_field :user_id, value: current_user.id
+        = f.text_field :description, label: "Description"
+        = f.text_field :published_on, label: "Date"
+        = f.check_box :public_event
+  .modal-footer
+    %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+    = f.submit 'Save', class: "btn btn-primary"

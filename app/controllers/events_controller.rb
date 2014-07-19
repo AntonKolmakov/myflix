@@ -4,13 +4,13 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    if params[:event_id]
-      search = Event.where(public_event: boolean(params[:event_id]))
+    @event = Event.new
+    if params[:commit] == 'all'
+      search = Event.where(public_event: true)
       @events = (current_user.events + search).uniq
       for_calendar
     else
-      public_event = Event.where(public_event: true)
-      @events = (current_user.events + public_event).uniq
+      @events = current_user.events
       for_calendar
     end
   end
@@ -35,7 +35,11 @@ class EventsController < ApplicationController
     if @event.save
       redirect_to @event, notice: 'Event was successfully created.'
     else
-      render :new
+      respond_to do |f|
+        f.html { render action: 'new' }
+        f.json { render json: @event.errors, status: :unprocessable_entity }
+        f.js   { render json: @event.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -68,10 +72,5 @@ class EventsController < ApplicationController
     def for_calendar
       @events_by_date = @events.group_by(&:published_on)
       @date = params[:date] ? Date.parse(params[:date]) : Date.today
-    end
-
-    def boolean(string)
-      return true if string == 'true'
-      return nil if string == 'false'
     end
 end

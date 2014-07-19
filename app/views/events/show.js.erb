@@ -1,0 +1,2 @@
+$('#events').append("<%= j render partial: 'calendar_events', locals: {date: @date, events_by_date: @events_by_date } %>");
+$('td').modal_success();

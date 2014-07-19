@@ -1,0 +1,4 @@
+- if events_by_date[date]
+  %ul
+    - events_by_date[date].each do |event|
+      %li= event.public_event? ? (link_to "#{event.description}(#{event.user.full_name})", event) : (link_to event.description, event)
