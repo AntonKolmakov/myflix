@@ -1,4 +1,10 @@
-- if events_by_date[date]
-  %ul
-    - events_by_date[date].each do |event|
-      %li= event.public_event? ? (link_to "#{event.description}(#{event.user.full_name})", event) : (link_to event.description, event)
+%h2#month
+  = link_to "<", date: date.prev_month
+  = date.strftime("%B %Y")
+  = link_to ">", date: date.next_month
+= calendar date do |date|
+  = date.day
+  - if events_by_date[date]
+    %ul
+      - events_by_date[date].each do |event|
+        %li= event.public_event? ? (link_to "#{event.description}(#{event.user.full_name})", event) : (link_to event.description, event)

@@ -6,19 +6,9 @@
 = form_tag events_path, method: :get do
   = submit_tag "all"
   = submit_tag "my"
-
+  
 #events
-  %h2#month
-    = link_to "<", date: @date.prev_month
-    = @date.strftime("%B %Y")
-    = link_to ">", date: @date.next_month
-  = calendar @date do |date|
-    = date.day
-    / = render partial: 'calendar_events', locals: {date: date, events_by_date: @events_by_date }
-    - if @events_by_date[date]
-      %ul
-        - @events_by_date[date].each do |event|
-          %li= event.public_event? ? (link_to "#{event.description}(#{event.user.full_name})", event) : (link_to event.description, event)
+  = render partial: 'calendar_events', locals: {date: @date, events_by_date: @events_by_date}
 
 / Modal
 #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
