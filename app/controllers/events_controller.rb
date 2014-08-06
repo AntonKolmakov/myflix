@@ -31,9 +31,10 @@ class EventsController < ApplicationController
   # POST /events
   def create
     @event = current_user.events.build(event_params)
-    
     respond_to do |f|
       if @event.save
+        @events = current_user.events
+        for_calendar
         f.html { redirect_to @event, flash[:info] = 'Event was successfully created.' }
         f.json { render action: 'show', status: :created, location: @event }
         f.js   { render action: 'show', status: :created, location: @event }

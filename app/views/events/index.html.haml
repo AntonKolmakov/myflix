@@ -1,8 +1,3 @@
-/ %h1 Listing events
-/ = form_tag events_path, method: :get do
-/   = select_tag(:event_id, options_for_select([['Only my events', false], ['All events', true]]), include_blank: true)
-/   = submit_tag "send"
-
 = form_tag events_path, method: :get do
   = submit_tag "all"
   = submit_tag "my"
